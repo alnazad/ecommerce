@@ -1,0 +1,3 @@
+<template>
+    User Create
+</template>
