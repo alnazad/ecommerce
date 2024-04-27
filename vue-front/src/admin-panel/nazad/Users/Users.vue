@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <div class="container">
                             <h2>Users Table</h2>
-                            <div><RouterLink class="btn btn-primary" to="/users/create">Add Users</RouterLink></div>
+                            <div><RouterLink class="btn btn-primary" :to="{name:'usercreate'}">Add Users</RouterLink></div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <thead class="thead-dark">
@@ -37,7 +37,10 @@
                                             <td>{{ data.bank_info }}</td>
                                             <td>{{ data.phone_number }}</td>
                                             <td>{{ data.role.name }}</td>
-                                            <td><button class="btn btn-primary" @click="update(data.id)" href="">Edit</button><button class="btn btn-danger" @click="deleteUser(data.id)"href="">Delete</button></td>
+                                            <td>
+                                                <button class="btn btn-primary" @click="update(data.id)">Edit</button>
+                                                <button class="btn btn-danger" @click="deleteUser(data.id)">Delete</button>
+                                            </td>
                                         </tr>
                                         <!-- Add more rows for additional products -->
                                     </tbody>
@@ -72,7 +75,7 @@ export default {
                 });
         },
         update(id) {
-            this.$router.push({path: '/users/edit/' +id});
+            this.$router.push({path:'/admin/useredit/'+id});
         },
         async deleteUser(id) {
             try {
