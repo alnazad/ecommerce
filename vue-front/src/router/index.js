@@ -13,6 +13,9 @@ import UserCreate from '@/admin-panel/nazad/Users/UserCreate.vue'
 import RoleCreate from '@/admin-panel/nazad/Roles/RoleCreate.vue'
 import UserEdit from '@/admin-panel/nazad/Users/UserEdit.vue'
 import RoleEdit from '@/admin-panel/nazad/Roles/RoleEdit.vue'
+import Payment from '@/admin-panel/nazad/Payment/Payment.vue'
+import PaytmentCreate from '@/admin-panel/nazad/Payment/PaytmentCreate.vue'
+import PaymentEdit from '@/admin-panel/nazad/Payment/PaymentEdit.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -71,7 +74,22 @@ const router = createRouter({
           path: 'useredit/:id',
           name: 'useredit',
           component: UserEdit
-        }
+        },
+        {
+          path: 'payment',
+          name: 'payment',
+          component: Payment,
+        },
+        {
+          path: 'paymentcreate',
+          name: 'paymentcreate',
+          component: PaytmentCreate,
+        },
+        {
+          path: 'paymentedit/:id',
+          name: 'paymentedit',
+          component: PaymentEdit
+        },
       ],
     },
     {

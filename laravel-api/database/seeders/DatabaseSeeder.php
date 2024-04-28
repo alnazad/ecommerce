@@ -19,5 +19,9 @@ class DatabaseSeeder extends Seeder
             'phone_number' => '01811121902',
             'bank_info' => '1766439ABz'
         ]);
+        \App\Models\Role::insert([
+            ["name" => "customer"],
+            ["name" => "guest"]
+        ]);
     }
 }
