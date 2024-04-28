@@ -59,9 +59,27 @@
         <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-                <router-link :to="{name: 'dashboard'}" class="menu-link">
+                <router-link :to="{ name: 'dashboard' }" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Dashboard</div>
+                </router-link>
+            </li>
+            <li class="menu-item active">
+                <router-link :to="{ name: 'roles' }" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Layouts">Roles</div>
+                </router-link>
+            </li>
+            <li class="menu-item active">
+                <router-link :to="{ name: 'users' }" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Layouts">Users</div>
+                </router-link>
+            </li>
+            <li class="menu-item active">
+                <router-link :to="{ name: 'payment' }" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Layouts">Payment</div>
                 </router-link>
             </li>
 
@@ -71,15 +89,6 @@
                     <i class="menu-icon tf-icons bx bx-layout"></i>
                     <div data-i18n="Layouts">Layouts</div>
                 </a>
-                <a href="roles" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-layout"></i>
-                    <div data-i18n="Layouts">Roles</div>
-                </a>
-                <a href="users" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-layout"></i>
-                    <div data-i18n="Layouts">Users</div>
-                </a>
-
                 <ul class="menu-sub">
                     <li class="menu-item">
                         <a href="layouts-without-menu.html" class="menu-link">
@@ -180,7 +189,7 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
             <!-- Cards -->
             <li class="menu-item">
-                <router-link :to="{name: 'adminforms'}" href="cards-basic.html" class="menu-link">
+                <router-link :to="{ name: 'adminforms' }" href="cards-basic.html" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-collection"></i>
                     <div data-i18n="Basic">FORMS</div>
                 </router-link>
@@ -366,15 +375,13 @@
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
             <li class="menu-item">
-                <router-link :to="{name: 'contactus'}"
-                    class="menu-link">
+                <router-link :to="{ name: 'contactus' }" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-support"></i>
                     <div data-i18n="Support">Contact Us</div>
                 </router-link>
             </li>
             <li class="menu-item">
-                <router-link :to="{name: 'products'}"
-                     class="menu-link">
+                <router-link :to="{ name: 'products' }" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-file"></i>
                     <div data-i18n="Documentation">Product</div>
                 </router-link>
