@@ -40,8 +40,9 @@
                                 <label class="form-label" for="basic-default-phone">Role</label>
                                 <select class="form-control" v-model="role_id" @onchange="this.value" >
                                     <option value="">Select one</option>
-                                    <option v-for="(data, k) in list" :key="k" :value="data.id">{{ data.name }}
-                                </option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Customer</option>
+                                    <option value="3">Guest</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -67,10 +68,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            test: "<h1>Users table</h1>",
-            url: 'http://localhost:8000/api/admin/roles',
-            urlU: 'http://localhost:8000/api/admin/users',
-            list:[],
+            url: 'http://localhost:8000/api/admin/users',
             name: "",
             email: "",
             phone_number: "",
@@ -82,18 +80,8 @@ export default {
         }
     },
     methods: {
-        getRoleList() {
-            axios.get(this.url)
-                .then((result) => {
-                    this.list = result.data.data
-                   console.log(result.data.data)
-
-                });
-        },
-
-        //add income----------------------
         save() {
-            axios.post(this.urlU, {
+            axios.post(this.url, {
                      name:this.name,
                      email:this.email,
                      phone_number:this.phone_number,
@@ -115,9 +103,6 @@ export default {
 
         },
 
-    },
-    mounted() {
-        this.getRoleList()
     },
 }
 </script>

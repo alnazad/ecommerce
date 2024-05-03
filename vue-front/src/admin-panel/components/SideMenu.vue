@@ -1,3 +1,19 @@
+<script>
+    export default {
+        name: "AdminSideMenu",
+
+        methods: {
+            toggleNearestLiClass(event) {
+                const nearestLi = event.target.closest('li.menu-item');
+                if (nearestLi) {
+                    nearestLi.classList.toggle('open');
+                }
+            }
+        }
+    }
+</script>
+
+
 <template>
     <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <div class="app-brand demo">
@@ -58,37 +74,28 @@
 
         <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
-                <router-link :to="{ name: 'dashboard' }" class="menu-link">
+            <li class="menu-item">
+                <router-link :to="{name: 'dashboard'}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Dashboard</div>
-                </router-link>
-            </li>
-            <li class="menu-item active">
-                <router-link :to="{ name: 'roles' }" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-layout"></i>
-                    <div data-i18n="Layouts">Roles</div>
-                </router-link>
-            </li>
-            <li class="menu-item active">
-                <router-link :to="{ name: 'users' }" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-layout"></i>
-                    <div data-i18n="Layouts">Users</div>
-                </router-link>
-            </li>
-            <li class="menu-item active">
-                <router-link :to="{ name: 'payment' }" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-layout"></i>
-                    <div data-i18n="Layouts">Payment</div>
                 </router-link>
             </li>
 
             <!-- Layouts -->
             <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <a @click="toggleNearestLiClass($event)" href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-layout"></i>
                     <div data-i18n="Layouts">Layouts</div>
                 </a>
+                <router-link :to="{name: 'users'}" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Layouts">Users</div>
+                </router-link>
+                <router-link :to="{name: 'payment'}" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Layouts">Payment</div>
+                </router-link>
+
                 <ul class="menu-sub">
                     <li class="menu-item">
                         <a href="layouts-without-menu.html" class="menu-link">
@@ -121,16 +128,17 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Pages</span>
             </li>
+            <!-- coupons list start -->
             <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <a @click="toggleNearestLiClass($event)" href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">Account Settings</div>
+                    <div data-i18n="Account Settings">Customer</div>
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item">
-                        <a href="pages-account-settings-account.html" class="menu-link">
-                            <div data-i18n="Account">Account</div>
-                        </a>
+                        <router-link :to="{name: 'cartTable'}" class="menu-link">
+                            <div data-i18n="Account">Cart</div>
+                        </router-link>
                     </li>
                     <li class="menu-item">
                         <a href="pages-account-settings-notifications.html" class="menu-link">
@@ -144,8 +152,29 @@
                     </li>
                 </ul>
             </li>
+            <!-- coupons list end -->
+            <!-- coupons list start -->
             <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <a @click="toggleNearestLiClass($event)" href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                    <div data-i18n="Account Settings">Coupons</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <router-link :to="{name: 'couponsshow'}" class="menu-link">
+                            <div data-i18n="Account">Coupon Show</div>
+                        </router-link>
+                    </li>
+                    <li class="menu-item">
+                        <router-link :to="{name: 'couponsUselist'}" class="menu-link">
+                            <div data-i18n="Account">Use Coupon Show</div>
+                        </router-link>
+                    </li>
+                </ul>
+            </li>
+            <!-- coupons list end -->
+            <li class="menu-item">
+                <a @click="toggleNearestLiClass($event)" href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                     <div data-i18n="Authentications">Authentications</div>
                 </a>
@@ -168,7 +197,7 @@
                 </ul>
             </li>
             <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <a @click="toggleNearestLiClass($event)" href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                     <div data-i18n="Misc">Misc</div>
                 </a>
@@ -189,14 +218,14 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
             <!-- Cards -->
             <li class="menu-item">
-                <router-link :to="{ name: 'adminforms' }" href="cards-basic.html" class="menu-link">
+                <router-link :to="{name: 'adminforms'}" href="cards-basic.html" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-collection"></i>
                     <div data-i18n="Basic">FORMS</div>
                 </router-link>
             </li>
             <!-- User interface -->
             <li class="menu-item">
-                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <a @click="toggleNearestLiClass($event)" href="javascript:void(0)" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-box"></i>
                     <div data-i18n="User interface">User interface</div>
                 </a>
@@ -301,7 +330,7 @@
 
             <!-- Extended components -->
             <li class="menu-item">
-                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <a @click="toggleNearestLiClass($event)" href="javascript:void(0)" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-copy"></i>
                     <div data-i18n="Extended UI">Extended UI</div>
                 </a>
@@ -325,12 +354,11 @@
                     <div data-i18n="Boxicons">Boxicons</div>
                 </a>
             </li>
-
             <!-- Forms & Tables -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
             <!-- Forms -->
             <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <a @click="toggleNearestLiClass($event)" href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-detail"></i>
                     <div data-i18n="Form Elements">Form Elements</div>
                 </a>
@@ -348,7 +376,7 @@
                 </ul>
             </li>
             <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <a @click="toggleNearestLiClass($event)" href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-detail"></i>
                     <div data-i18n="Form Layouts">Form Layouts</div>
                 </a>
@@ -375,13 +403,15 @@
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
             <li class="menu-item">
-                <router-link :to="{ name: 'contactus' }" class="menu-link">
+                <router-link :to="{name: 'contactus'}"
+                    class="menu-link">
                     <i class="menu-icon tf-icons bx bx-support"></i>
                     <div data-i18n="Support">Contact Us</div>
                 </router-link>
             </li>
             <li class="menu-item">
-                <router-link :to="{ name: 'products' }" class="menu-link">
+                <router-link :to="{name: 'products'}"
+                     class="menu-link">
                     <i class="menu-icon tf-icons bx bx-file"></i>
                     <div data-i18n="Documentation">Product</div>
                 </router-link>

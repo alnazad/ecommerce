@@ -26,8 +26,9 @@
                                 <label class="form-label" for="basic-default-phone">Role</label>
                                 <select class="form-control" v-model="role_id" @onchange="this.value" >
                                     <option value="">Select one</option>
-                                    <option v-for="(data, k) in list" :key="k" :value="data.id">{{ data.name }}
-                                </option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Customer</option>
+                                    <option value="3">Guest</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -53,9 +54,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            url: 'http://localhost:8000/api/admin/roles',
-            urlU: 'http://localhost:8000/api/admin/users',
-            list:[],
+            url: 'http://localhost:8000/api/admin/users',
             name: "",
             phone_number: "",
             address: "",
@@ -64,15 +63,8 @@ export default {
         }
     },
     methods: {
-        getRoleList() {
-            axios.get(this.url)
-                .then((result) => {
-                    this.list = result.data.data
-                   console.log(result.data.data)
-                });
-        },
         getUserList(id) {
-            axios.get(`${this.urlU}/${id}/edit`)
+            axios.get(`${this.url}/${id}/edit`)
                 .then((result) => {
                     this.name = result.data.data.name
                     this.email = result.data.data.email
@@ -83,7 +75,7 @@ export default {
                 });
         },
         save() {
-            axios.put(`${this.urlU}/${this.$route.params.id}`, {
+            axios.put(`${this.url}/${this.$route.params.id}`, {
                      name:this.name,
                      phone_number:this.phone_number,
                      address:this.address,
@@ -98,7 +90,6 @@ export default {
         },
     },
     mounted() {
-        this.getRoleList()
         const id = this.$route.params.id;
         this.getUserList(id)
     },
