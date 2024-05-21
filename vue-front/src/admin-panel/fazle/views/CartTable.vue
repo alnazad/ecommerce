@@ -4,20 +4,21 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            carts: []
+            carts: [],
+            url: this.$store.state.base.url
         }
     },
 
     methods: {
         getCarts() {
-            axios.get('http://127.0.0.1:8000/api/admin/carts')
+            axios.get(this.url+'admin/carts')
                 .then((result) => {
                     this.carts = result.data.data;
                     console.log(result);
                 })
         },
         deleteCart(id) {
-            axios.delete("http://127.0.0.1:8000/api/admin/carts/" + id).then(() => {
+            axios.delete(this.url+"admin/carts/" + id).then(() => {
                 this.getCarts()
             });
         }
@@ -37,7 +38,7 @@ export default {
                     <h5 class="mb-0">Cart List</h5>
                 </div>
                 <div class="col-auto">
-                    <router-link :to="{name: 'cartAdd'}" class="btn btn-primary btn-lg">Add More</router-link>
+                    <router-link :to="{ name: 'cartAdd' }" class="btn btn-primary btn-lg">Add More</router-link>
                 </div>
             </div>
         </div>
@@ -59,8 +60,9 @@ export default {
                         <td>{{ c.quantity }}</td>
                         <td>{{ c.user.name }}</td>
                         <td>
-                            <router-link :to="{ name: 'cartUpdate', params: { id: c.id } }" class="btn btn-info mr-2">Edit</router-link>
-                            <button @click="deleteCart(c.id)" class="btn btn-danger">Delete</button>
+                            <router-link :to="{ name: 'cartUpdate', params: { id: c.id } }"
+                                class="btn btn-primary">Edit</router-link>
+                            <button @click="deleteCart(c.id)" class="btn btn-danger mx-2">Delete</button>
                         </td>
                     </tr>
                 </tbody>

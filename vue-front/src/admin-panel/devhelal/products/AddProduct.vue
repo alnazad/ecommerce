@@ -15,9 +15,13 @@ export default {
             categorylist: [],
             sub_categorylist: [],
             category_id_null: 0,
+            imagePreview: null,
+            nameError:"",
+           
         }
     },
     methods: {
+        // =================get all product list for chack already product exist and category sub-categore select ==============
         getProductList() {
             axios.get(this.url).then((response) => {
                 const product = response.data.data[0];
@@ -27,6 +31,7 @@ export default {
             });
         },
         setCategory() {
+            //================if category not select subCategory not show =============== 
             const id = ("dev Helal:", this.category_id);
             this.category_id_null = id;
             if (id !== 0 && this.category_id_null != 0) {
@@ -36,10 +41,24 @@ export default {
                 });
             }
             this.sub_categorylist = "";
+            this.sub_category_id = 0;
         },
         onFileSelected(event) {
+            // =============== upload file set ===================
             this.path = event.target.files[0];
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+        this.createImagePreview(file);
+      }
         },
+        createImagePreview(file) {
+            // ================= file show to see what is he upload? ==================
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagePreview = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
         save() {
             const formData = new FormData();
             formData.append('photo', this.path);
@@ -59,11 +78,21 @@ export default {
             .then((response) => {
                 this.$router.push({ name: 'productslist' });
             });
-            
         },
     },
     mounted() {
         this.getProductList();
+    },
+    watch:{
+         name(newValue) {
+      // =================== check if the name exists in the productlist array===============
+      const nameExists = this.productlist.some(item => item.name === newValue);
+      if (nameExists) {
+        this.nameError = 'This Product Name is Already Taken.';
+      } else {
+        this.nameError = '';
+      }
+    }
     },
 }
 </script>
@@ -71,7 +100,7 @@ export default {
     <div class="container-xxl flex-grow-1 container-p-y text-dark">
         <div class="col-md-12 row">
             <div class="col-md-4 ">
-                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Add a New Product</h4>
+                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Add a New Product </h4>
             </div>
             <div class="col-md-3 "></div>
             <div class="col-md-5 ">
@@ -90,8 +119,9 @@ export default {
                             <h5 class="text-dark">Product Information</h5>
                             <div class="row">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Product Name" v-model="name" />
+                                    <input type="text" class="form-control" placeholder="Product Name" v-model="name" :style="{ borderColor: nameError ? 'red' : '' }" />
                                 </div>
+                                <p v-if="nameError" style="color: red;">This name is already taken.</p>
                                 <div class="form-floating mt-4">
                                     <textarea class="form-control" placeholder="Make Product Description Here"
                                         id="floatingTextarea2" style="height: 250px" v-model="description"></textarea>
@@ -110,6 +140,10 @@ export default {
                                 <div class="input-group">
                                     <input type="file" class="form-control" @change="onFileSelected" />
                                 </div>
+                                <div class="card" style="width: 18rem;">
+                                    <img v-if="imagePreview" :src="imagePreview" class="preview-image"/>
+                            </div>
+                            
                             </div>
                         </div>
                     </div>
@@ -163,8 +197,7 @@ export default {
                                 <select class="form-select col-md-10 mt-2" v-model="sub_category_id"
                                     :disabled="sub_categorylist == ''">
                                     <option value="0">Sub Category</option>
-                                    <option v-for="(scdata, i) in sub_categorylist" :key="i" :value="scdata.id">{{
-                                        scdata.name }}</option>
+                                    <option v-for="(scdata, i) in sub_categorylist" :key="i" :value="scdata.id">{{scdata.name }}</option>
                                 </select>
                             </div>
 

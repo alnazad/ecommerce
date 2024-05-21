@@ -1,25 +1,44 @@
+<script>
+import { mapGetters } from 'vuex';
+export default {
+	props: {
+		cartShow: String,
+	},
+	methods: {
+		updateSharedData(newValue) {
+			this.$emit('update-shared-data', ' show-header-cart');
+		},
+	},
+	computed: {
+		...mapGetters(['totalItems'])
+	}
+}
+</script>
+
+
 <template>
-    <header class="header-v2">
+	<header class="header-v2">
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
 			<!-- Topbar -->
 			<div class="wrap-menu-desktop how-shadow1">
 				<nav class="limiter-menu-desktop container">
-					
-					<!-- Logo desktop -->		
-					<a href="#" class="logo">
-						<img src="@/assets/front-assets/images/icons/logo-01.png" alt="IMG-LOGO">
-					</a>
+
+					<!-- Logo desktop -->
+					<router-link :to="{ name: 'home' }" class="logo">
+						<!-- <img src="@/assets/front-assets/images/icons/logo-01.png" alt="IMG-LOGO"> -->
+						<h1 style="color: black; font-size: 35px;"><i><b>vcommerce</b></i></h1>
+					</router-link>
 
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li>
-								<router-link :to="{name: 'home'}">Home</router-link>
+								<router-link :to="{ name: 'home' }">Home</router-link>
 							</li>
 
 							<li class="active-menu">
-								<router-link :to="{name: 'products'}">Shop</router-link>
+								<router-link :to="{ name: 'products' }">Shop</router-link>
 							</li>
 
 							<li class="label1" data-label1="hot">
@@ -37,30 +56,45 @@
 							<li>
 								<a href="contact.html">Contact</a>
 							</li>
+
+							<li v-show="$store.state.auth.user.role_id == 2">
+								<router-link :to="{ name: 'customer' }">Customer Panel</router-link>
+							</li>
+
+							<li v-show="$store.state.auth.user.role_id == 3">
+								<router-link :to="{ name: 'vendor' }">Vendor Panel</router-link>
+							</li>
 						</ul>
-					</div>	
+					</div>
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 							<i class="zmdi zmdi-search"></i>
 						</div>
+						<router-link :to="{ name: 'login'}"
+							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							<i class="zmdi zmdi-account"></i>
+						</router-link>
 
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+						<div @click="updateSharedData"
+							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+							:data-notify="totalItems">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+						<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+							data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
 				</nav>
-			</div>	
+			</div>
 		</div>
 
 		<!-- Header Mobile -->
 		<div class="wrap-header-mobile">
-			<!-- Logo moblie -->		
+			<!-- Logo moblie -->
 			<div class="logo-mobile">
 				<a href="index.html"><img src="@/assets/front-assets/images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
@@ -71,11 +105,13 @@
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+					data-notify="2">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 
-				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
+				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+					data-notify="0">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 			</div>

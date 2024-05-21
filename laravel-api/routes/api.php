@@ -4,6 +4,7 @@ use App\Http\Controllers\CartsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponUsagesController;
 use App\Http\Controllers\CuponsController;
+use App\Http\Controllers\FlightController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\OrdersController;
@@ -21,10 +22,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function(){
     Route::resource('users',UserController::class)->names('users');
+    Route::get('flight',[FlightController::class, 'index'])->name('flight');
     Route::resource('carts',CartsController::class)->names('carts');
     Route::resource('categorys',CategoryController::class)->names('categorys');
     Route::resource('cupons',CuponsController::class)->names('cupons');
     Route::resource('couponusages',CouponUsagesController::class)->names('couponusages');
+    Route::post('checkcoupon',[CuponsController::class, 'checkCoupon'])->name('checkcoupon');
     Route::resource('orderitems',OrderItemsController::class)->names('orderitems');
     Route::resource('orders',OrdersController::class)->names('orders');
     Route::resource('payments',PaymentsController::class)->names('payments');
