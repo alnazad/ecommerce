@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "uuid": "^9.0.1",
+    "vuex": "^4.1.0",
+    "vuex-persistedstate": "^4.1.0"
+  }
+}
